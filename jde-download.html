@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Téléchargement</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href
+</head>
+<body>
+
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+
+<div class="card">
+  <p class="welcome">✓ Connecté</p>
+  <h1>Vos fichiers</h1>
+  <p class="desc">Bienvenue, <strong id="username-display"></strong>.<br>Téléchargez vos fichiers ci-dessous.</p>
+
+  <!-- ── Fichiers à télécharger — modifiez href et les infos ── -->
+  <div class="file-card">
+    <div class="file-icon">📄</div>
+    <div class="file-info">
+      <div class="file-name">Document important.pdf</div>
+      <div class="file-size">PDF — 2.4 Mo</div>
+    </div>
+    <a class="btn-dl" href="document.pdf" download>↓ Télécharger</a>
+  </div>
+
+  <div class="file-card">
+    <div class="file-icon">🗂️</div>
+    <div class="file-info">
+      <div class="file-name">Archive projet.zip</div>
+      <div class="file-size">ZIP — 15.8 Mo</div>
+    </div>
+    <a class="btn-dl" href="projet.zip" download>↓ Télécharger</a>
+  </div>
+
+  <div class="file-card">
+    <div class="file-icon">📊</div>
+    <div class="file-info">
+      <div class="file-name">Rapport 2024.xlsx</div>
+      <div class="file-size">Excel — 870 Ko</div>
+    </div>
+    <a class="btn-dl" href="rapport.xlsx" download>↓ Télécharger</a>
+  </div>
+  <!-- ─────────────────────────────────────────────────────────── -->
+
+  <p class="logout">Pas vous ? <a href="login.html" onclick="logout()">Se déconnecter</a></p>
+</div>
+
+<script>
+  // Vérifier la session
+  if (sessionStorage.getItem('auth') !== 'true') {
+    window.location.href = 'jde.html';
+  }
+
+  // Afficher le nom de l'utilisateur
+  const user = sessionStorage.getItem('user');
+  document.getElementById('username-display').textContent = user || 'utilisateur';
+
+  function logout() {
+    sessionStorage.clear();
+  }
+</script>
+</body>
+</html>

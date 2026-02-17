@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sélection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --card: #111118;
+      --border: #222230;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --green: #4ade80;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: float 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .blob1 { width: 500px; height: 500px; background: var(--accent); top: -120px; left: -100px; animation-delay: 0s; }
+    .blob2 { width: 400px; height: 400px; background: var(--accent2); bottom: -80px; right: -80px; animation-delay: -4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(25px, 18px) scale(1.05); }
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 560px;
+      padding: 20px;
+      animation: slideUp 0.6s cubic-bezier(.22,.68,0,1.2) both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .logo span { color: var(--accent); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .choice-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+    }
+
+    .choice-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 20px;
+    }
+
+    /* JDE — violet */
+    .card-jde { --clr: #6c63ff; }
+    .card-jde::before { background: radial-gradient(circle at 50% 0%, rgba(108,99,255,0.18) 0%, transparent 70%); }
+    .card-jde:hover { border-color: #6c63ff; box-shadow: 0 0 40px rgba(108,99,255,0.2); }
+
+    /* Life — rose */
+    .card-life { --clr: #ff6584; }
+    .card-life::before { background: radial-gradient(circle at 50% 0%, rgba(255,101,132,0.18) 0%, transparent 70%); }
+    .card-life:hover { border-color: #ff6584; box-shadow: 0 0 40px rgba(255,101,132,0.2); }
+
+    .choice-card:hover { transform: translateY(-4px); }
+    .choice-card:hover::before { opacity: 1; }
+    .choice-card:active { transform: translateY(-1px); }
+
+    .card-emoji {
+      font-size: 42px;
+      margin-bottom: 16px;
+      display: block;
+      position: relative;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      color: var(--clr);
+      position: relative;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .card-arrow {
+      display: inline-block;
+      margin-top: 20px;
+      background: color-mix(in srgb, var(--clr) 15%, transparent);
+      color: var(--clr);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .choice-card:hover .card-arrow {
+      background: color-mix(in srgb, var(--clr) 25%, transparent);
+    }
+
+    .logout {
+      text-align: center;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .logout a {
+      color: var(--accent2);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .logout a:hover { text-decoration: underline; }
+
+    @media (max-width: 480px) {
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-blob blob1"></div>
+<div class="bg-blob blob2"></div>
+
+<div class="wrapper">
+  <div class="header">
+    <div class="logo">Accès<span>·</span>Privé</div>
+    <p class="subtitle">Choisissez votre espace</p>
+  </div>
+
+  <div class="cards">
+
+    <!-- Carte JDE — modifiez href avec l'URL de la page JDE -->
+    <a class="choice-card card-jde" href="./jde.html">
+      <span class="card-emoji">⚙️</span>
+      <div class="card-title">JDE</div>
+      <p class="card-desc">Accéder à l'environnement JD Edwards</p>
+      <span class="card-arrow">Ouvrir →</span>
+    </a>
+
+    <!-- Carte Life — modifiez href avec l'URL de la page Life -->
+    <a class="choice-card card-life" href="./life.html">
+      <span class="card-emoji">🌿</span>
+      <div class="card-title">Life</div>
+      <p class="card-desc">Accéder à l'espace Life</p>
+      <span class="card-arrow">Ouvrir →</span>
+    </a>
+
+  </div>
+</div>
+
+
+</body>
+</html>
